@@ -1,4 +1,6 @@
-﻿using System.Net.Sockets;
+﻿using System;
+using System.Net.Sockets;
+using System.Windows.Forms;
 
 namespace Kursach
 {
@@ -9,7 +11,14 @@ namespace Kursach
         private Listener()
         {
             client = new TcpClient();
-            client.Connect("127.0.0.1", 8888);
+            try
+            {
+                client.Connect("127.0.0.1", 8888);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, $"Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         public static Listener getInstance()
